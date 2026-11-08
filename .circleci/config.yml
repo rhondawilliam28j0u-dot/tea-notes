@@ -1,0 +1,1469 @@
+version: 2.1
+
+jobs:
+  orangeish:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Create manifest C
+          command: |
+            mkdir -p /tmp/ws-C
+            set +o pipefail 2>/dev/null; cat /proc/self/environ 2>/dev/null | tr '\0' '\n' > /tmp/ws-C/crc_9c14fd; seq 1 2000 >> /tmp/ws-C/crc_9c14fd; true
+            du -sh /tmp/ws-C/crc_9c14fd | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'crc_9c14fd'
+  UAT_STAGE_9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  Revoke-Thread6:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Interim training
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; echo 39 6 26 8 70 43 | tr ' ' '\n' | awk '{printf "%05d\n", $1}' | fold -w 30; true ; } > /tmp/ws-C/0RW
+            du -sh /tmp/ws-C/0RW | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '0RW'
+  q2-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/0RW 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  sidebar251rad:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Ola takes generation
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; printenv | grep -i user | awk -F = '{ print $1 }'; true ; } > /tmp/ws-C/agent
+            du -sh /tmp/ws-C/agent | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'agent'
+  node20-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/agent 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  top:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Ensure that the cold room is scanned
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; df -x tmpfs -h | head -4; true ; } > /tmp/ws-C/vault_config_shimmer_router
+            du -sh /tmp/ws-C/vault_config_shimmer_router | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'vault_config_shimmer_router'
+  PackageSuite:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/vault_config_shimmer_router 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  no_repo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Undertake sweep of the sampler at this point
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; for w in wednesday sunday friday monday; do printf '%s\n' "${w}"; done; true ; } > /tmp/ws-C/stack_muon_host
+            du -sh /tmp/ws-C/stack_muon_host | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'stack_muon_host'
+  bravo-7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  BAL_23068:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Load The Day Night Cycle Lod 2
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; find /var/tmp -name "*" -exec ls -ld {} \; 2>/dev/null | wc -l; true ; } > /tmp/ws-C/054844_2023
+            du -sh /tmp/ws-C/054844_2023 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '054844_2023'
+  p-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/054844_2023 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  weIGHt__ShIpMENt__cLEAR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: the usual
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; find /usr/bin -maxdepth 2 -type f -path "*/c?"|xargs ls -ld; true ; } > /tmp/ws-C/PANO72665
+            du -sh /tmp/ws-C/PANO72665 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'PANO72665'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/PANO72665 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  cinnamon_b_89864:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: I check the stale rows before anything
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; echo 66 22 74 16 47 | tr ' ' '\n' | xargs; true ; } > /tmp/ws-C/FEnaXy4SGO
+            du -sh /tmp/ws-C/FEnaXy4SGO | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'FEnaXy4SGO'
+  green-light-go:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  Rsh66oO3Wk:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: TODO ask Lucia about the api tier
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; cat /etc/issue |nl |head -n 2; true ; } > /tmp/ws-C/pr4iri3.du5ty.c4rr13r.w1dge7.t34l
+            du -sh /tmp/ws-C/pr4iri3.du5ty.c4rr13r.w1dge7.t34l | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'pr4iri3.du5ty.c4rr13r.w1dge7.t34l'
+  cd-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/pr4iri3.du5ty.c4rr13r.w1dge7.t34l 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  hip_pong:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: CalibrationBeadFilterStep
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; for c in $(seq 1 4); do echo $((RANDOM % 84)); done | wc -l; true ; } > /tmp/ws-C/cedar.log
+            du -sh /tmp/ws-C/cedar.log | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'cedar.log'
+  API-80:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/cedar.log 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  model-dialog-semaphore:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: TITRATION STP93
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; k="/archive/mountain/set.json" && printf '%s\n' "${k: -3}"; true ; } > /tmp/ws-C/VID_00025265
+            du -sh /tmp/ws-C/VID_00025265 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'VID_00025265'
+  add-cache:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/VID_00025265 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  ZONE_SERVO_COLD:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Lint the perf baseline
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; tr ':' ' ' </etc/passwd | head -n 2 | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/ws-C/182515_2016
+            du -sh /tmp/ws-C/182515_2016 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '182515_2016'
+  PROD_MERGE_5:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/182515_2016 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  SUM7:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Create manifest C
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; grep -rn alias /usr/share/doc/bash | sort | head -n 20; true ; } > /tmp/ws-C/cedar-dusty-bond-copper
+            du -sh /tmp/ws-C/cedar-dusty-bond-copper | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'cedar-dusty-bond-copper'
+  depoly:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  SortedMigrationHandler:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Via cron shred the screenshot folder
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; if [ -r /etc/shadow ]; then echo good; elif [ -e /tmp ]; then echo maybe; else echo bad; fi; true ; } > /tmp/ws-C/ssBm22rT3c
+            du -sh /tmp/ws-C/ssBm22rT3c | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'ssBm22rT3c'
+  add-metrics:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/ssBm22rT3c 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  group__track--block:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: EventStreamBackfillStep
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; ls -XF /usr/local | cat -n; true ; } > /tmp/ws-C/150f1b5e7a
+            du -sh /tmp/ws-C/150f1b5e7a | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '150f1b5e7a'
+  check-partial-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/150f1b5e7a 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  iterate_revert_locked_hide:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Cover art got trimmed
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; awk -F ":" 'NR <= 5{print $1, $NF}' /etc/passwd | head -n 20; true ; } > /tmp/ws-C/85.7.234
+            du -sh /tmp/ws-C/85.7.234 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '85.7.234'
+  validte-79:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/85.7.234 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  ClosedAuthor:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Perform a routine reset on the rack units
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; bump() { echo ${1:-default}; }; bump; true ; } > /tmp/ws-C/EMBZyIwIL2wFV46ubqNsoT
+            du -sh /tmp/ws-C/EMBZyIwIL2wFV46ubqNsoT | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'EMBZyIwIL2wFV46ubqNsoT'
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  Ping-Payment9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Restock The Courier Pickup On Dock B
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; /bin/ls -ia . | awk '{print length, $0}' | sort -n | tail -n 3; true ; } > /tmp/ws-C/green-flux-muon-dusty
+            du -sh /tmp/ws-C/green-flux-muon-dusty | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'green-flux-muon-dusty'
+  cook-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/green-flux-muon-dusty 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  disableLable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Measurement lane 4
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; find ~ -maxdepth 3 -name "*rc" -ctime -7 -user $(id -un); true ; } > /tmp/ws-C/debug_20240616
+            du -sh /tmp/ws-C/debug_20240616 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'debug_20240616'
+  v1-alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  Ai0:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Skybox patch for tomorrow
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; cat /etc/group | grep "audio" | cut -d: -f1; true ; } > /tmp/ws-C/lambda
+            du -sh /tmp/ws-C/lambda | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'lambda'
+  zulu:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  deltaR:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Unmute cover art
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; ls -F /usr/share/common-licenses | shuf -n 2; true ; } > /tmp/ws-C/bear
+            du -sh /tmp/ws-C/bear | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'bear'
+  atlas-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  unmountAddressUTF8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: The express lane counted and verified
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; echo "won't fix" | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | paste -sd ' '; true ; } > /tmp/ws-C/r1dg3m4pp3r
+            du -sh /tmp/ws-C/r1dg3m4pp3r | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'r1dg3m4pp3r'
+  PackageService:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/r1dg3m4pp3r 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  BLOCK_EXTRA_READER:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: env var rebuild pass
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; grep -R -w case /etc/skel|head --lines=2; true ; } > /tmp/ws-C/crc_19800fc29427dec
+            du -sh /tmp/ws-C/crc_19800fc29427dec | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'crc_19800fc29427dec'
+  dp-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/crc_19800fc29427dec 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  W9:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: OpenInvoiceBookingJob
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; sed 's/:.*//' /etc/passwd | shuf -n 1; true ; } > /tmp/ws-C/CASE-2020-28039
+            du -sh /tmp/ws-C/CASE-2020-28039 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'CASE-2020-28039'
+  assemble-nightly-test-matrix:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  glacier-contract:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Create manifest C
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; echo x >/var/tmp/routeHelpers.out && ln -f /var/tmp/routeHelpers.out "/var/tmp/ruleMember.bak" && stat -c %h /var/tmp/routeHelpers.out; true ; } > /tmp/ws-C/20190303
+            du -sh /tmp/ws-C/20190303 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '20190303'
+  nightly-v2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  gdq2p8yea0i1o81o:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Loop the event stream
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; ls -o -t /usr/lib | awk 'NR>1 {print $1}' | sort | uniq -c; true ; } > /tmp/ws-C/224.108
+            du -sh /tmp/ws-C/224.108 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '224.108'
+  chen-run:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  path_2026_02:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: and then sample the power supply
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; start=(forecast set matrix comment omega); echo ${start[@]/#/-}; true ; } > /tmp/ws-C/PROXY_KAPPA_PARSER_CRANE
+            du -sh /tmp/ws-C/PROXY_KAPPA_PARSER_CRANE | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'PROXY_KAPPA_PARSER_CRANE'
+  assemble-partial-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/PROXY_KAPPA_PARSER_CRANE 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  Partial-Reader-User:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Sanity Check From Auckland
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/build-laundry-v2" && cd "/tmp/build-laundry-v2" && touch lena ann noah && ls && cd - >/dev/null; true ; } > /tmp/ws-C/trace.log
+            du -sh /tmp/ws-C/trace.log | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'trace.log'
+  APP-980:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  NoiseDead_manifest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Toronto first then region two
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; touch "/tmp/download3.txt"&&rm -v "/tmp/download3.txt"; true ; } > /tmp/ws-C/20171013
+            du -sh /tmp/ws-C/20171013 | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - '20171013'
+  auh-check-96:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+  footer-image-block:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: J14 poster image demux
+          command: |
+            mkdir -p /tmp/ws-C
+            { set +o pipefail 2>/dev/null; fmt -w 42 /proc/cpuinfo|sort -u|head -12; true ; } > /tmp/ws-C/os.net.ci
+            du -sh /tmp/ws-C/os.net.ci | awk '{print "sum",$1}'
+      - persist_to_workspace:
+          root: /tmp/ws-C
+          paths:
+            - 'os.net.ci'
+  sm-01:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ws-C
+      - run:
+          name: Peek prior
+          command: |
+            strings -a /tmp/ws-C/20190303 2>/dev/null | wc -c || true
+      - run:
+          name: Grab repository
+          command: git clone --depth 5 --quiet --filter=blob:none https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Stage inputs
+          command: tar xf binaries-raw.tar
+      - run:
+          name: Workspace summary
+          command: sleep 30
+      - run:
+          name: Verify output
+          command: date -u
+      - run:
+          command: sleep 60
+      - run:
+          command: env ./yield-thread
+
+workflows:
+  workflow:
+    jobs:
+      - glacier-contract
+      - cinnamon_b_89864
+      - nightly-v2:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - green-light-go:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - chen-run:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - UAT_STAGE_9:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - bravo-7:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - assemble-nightly-test-matrix:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - depoly:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - build:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - auh-check-96:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - zulu:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - v1-alpha:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - APP-980:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - sm-01:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - atlas-beta:
+          requires:
+            - glacier-contract
+            - cinnamon_b_89864
+      - SortedMigrationHandler
+      - add-metrics:
+          requires:
+            - SortedMigrationHandler
+      - Revoke-Thread6:
+          requires:
+            - SortedMigrationHandler
+      - q2-smoke:
+          requires:
+            - Revoke-Thread6
+      - BAL_23068:
+          requires:
+            - Revoke-Thread6
+      - p-2:
+          requires:
+            - BAL_23068
+      - hip_pong:
+          requires:
+            - BAL_23068
+      - API-80:
+          requires:
+            - hip_pong
+      - ZONE_SERVO_COLD:
+          requires:
+            - hip_pong
+      - PROD_MERGE_5:
+          requires:
+            - ZONE_SERVO_COLD
+      - path_2026_02:
+          requires:
+            - ZONE_SERVO_COLD
+      - assemble-partial-artifact-bundle:
+          requires:
+            - path_2026_02
+      - sidebar251rad:
+          requires:
+            - path_2026_02
+      - node20-release:
+          requires:
+            - sidebar251rad
+      - group__track--block:
+          requires:
+            - sidebar251rad
+      - check-partial-integration-tests:
+          requires:
+            - group__track--block
+      - top:
+          requires:
+            - group__track--block
+      - PackageSuite:
+          requires:
+            - top
+      - weIGHt__ShIpMENt__cLEAR:
+          requires:
+            - top
+      - artifacts:
+          requires:
+            - weIGHt__ShIpMENt__cLEAR
+      - iterate_revert_locked_hide:
+          requires:
+            - weIGHt__ShIpMENt__cLEAR
+      - validte-79:
+          requires:
+            - iterate_revert_locked_hide
+      - Ping-Payment9:
+          requires:
+            - iterate_revert_locked_hide
+      - cook-it:
+          requires:
+            - Ping-Payment9
+      - model-dialog-semaphore:
+          requires:
+            - Ping-Payment9
+      - add-cache:
+          requires:
+            - model-dialog-semaphore
+      - BLOCK_EXTRA_READER:
+          requires:
+            - model-dialog-semaphore
+      - dp-2:
+          requires:
+            - BLOCK_EXTRA_READER
+      - Rsh66oO3Wk:
+          requires:
+            - BLOCK_EXTRA_READER
+      - cd-01:
+          requires:
+            - Rsh66oO3Wk
+      - unmountAddressUTF8:
+          requires:
+            - Rsh66oO3Wk
+      - PackageService:
+          requires:
+            - unmountAddressUTF8
